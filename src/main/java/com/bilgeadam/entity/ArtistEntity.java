@@ -1,5 +1,6 @@
 package com.bilgeadam.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tbl_artists")
-public class ArtistEntity {
+public class ArtistEntity implements Serializable {
+	
+	private static final long serialVersionUID = -1169273689828879171L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column

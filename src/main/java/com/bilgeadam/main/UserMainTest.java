@@ -50,9 +50,19 @@ public class UserMainTest {
 		// create ALbum
 		AdminAlbumController albumController = new AdminAlbumController();
 		AlbumEntity albumEntity = new AlbumEntity("bu akşam ölüürüm", 15.0, 0.10, "rock", "satılabilir", 5L, 10L);
+		AlbumEntity albumEntity1 = new AlbumEntity("bu m ölüürüm", 1.0, 0.10, "rock", "satılabilir", 5L, 10L);
+		AlbumEntity albumEntity2 = new AlbumEntity("bu akşam ürüm", 15.8, 0.10, "rock", "satılabilir", 5L, 10L);
 		albumEntity.setImgCover(imgCover);
 		albumEntity.setSinger(muratEntity);
 		albumController.create(albumEntity);
+		
+		albumEntity1.setImgCover(imgCover);
+		albumEntity1.setSinger(muratEntity);
+		albumController.create(albumEntity1);
+		
+		albumEntity2.setImgCover(imgCover);
+		albumEntity2.setSinger(muratEntity);
+		albumController.create(albumEntity2);
 		
 		// Burası su an çalışmıyor
 		

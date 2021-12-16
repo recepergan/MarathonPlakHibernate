@@ -1,9 +1,11 @@
 package com.bilgeadam.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,7 +26,9 @@ import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "tbl_album")
-public class AlbumEntity {
+public class AlbumEntity implements Serializable {
+	
+	private static final long serialVersionUID = 859557412357983086L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -97,10 +101,40 @@ public class AlbumEntity {
 	}
 	
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(imgCover);
+		result = prime * result + Objects.hash(creation_date, discountRate, id, name, orders, pierce, salesCount,
+				singer, status, stockCount, type);
+		return result;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AlbumEntity other = (AlbumEntity) obj;
+		return Objects.equals(creation_date, other.creation_date)
+				&& Double.doubleToLongBits(discountRate) == Double.doubleToLongBits(other.discountRate)
+				&& id == other.id && Arrays.equals(imgCover, other.imgCover) && Objects.equals(name, other.name)
+				&& Objects.equals(orders, other.orders)
+				&& Double.doubleToLongBits(pierce) == Double.doubleToLongBits(other.pierce)
+				&& salesCount == other.salesCount && Objects.equals(singer, other.singer)
+				&& Objects.equals(status, other.status) && stockCount == other.stockCount
+				&& Objects.equals(type, other.type);
+	}
+	
+	@Override
 	public String toString() {
 		return "AlbumEntity [id=" + id + ", name=" + name + ", pierce=" + pierce + ", imgCover="
-				+ Arrays.toString(imgCover) + ", discountRate=" + discountRate + ", singer=" + singer + ", type=" + type
-				+ ", status=" + status + ", stockCount=" + stockCount + ", salesCount=" + salesCount + "]";
+				+ Arrays.toString(imgCover) + ", discountRate=" + discountRate + ", singer=" + singer + ", orders="
+				+ orders + ", type=" + type + ", status=" + status + ", stockCount=" + stockCount + ", salesCount="
+				+ salesCount + ", creation_date=" + creation_date + "]";
 	}
 	
 	public long getId() {

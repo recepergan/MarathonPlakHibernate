@@ -1,5 +1,6 @@
 package com.bilgeadam.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,7 +22,9 @@ import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "tbl_user")
-public class UserEntity {
+public class UserEntity implements Serializable {
+	
+	private static final long serialVersionUID = -2167063327164150289L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "user_id")

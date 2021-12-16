@@ -1,6 +1,7 @@
 package com.bilgeadam.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.TypedQuery;
 
@@ -101,6 +102,49 @@ public class AdminAlbumController implements IAdminCrud<AlbumEntity> {
 	public Session databaseConnectionHibernate() {
 		// TODO Auto-generated method stub
 		return IAdminCrud.super.databaseConnectionHibernate();
+	}
+	
+	public List<AlbumEntity> listTheLastTenAlbum() {
+		Session session = databaseConnectionHibernate();
+		
+		String hql = "select str from AlbumEntity as str  order by str.creation_date desc";
+		TypedQuery<AlbumEntity> typedQuery = session.createQuery(hql, AlbumEntity.class);
+		typedQuery.setMaxResults(3);
+		ArrayList<AlbumEntity> arrayList = (ArrayList<AlbumEntity>) typedQuery.getResultList();
+		
+		return arrayList;
+	}
+	
+	public List<AlbumEntity> listTheDiscountedFifteenAlbum() {
+		Session session = databaseConnectionHibernate();
+		
+		String hql = "select str from AlbumEntity as str where str.discountRate>0 order by str.discountRate desc";
+		TypedQuery<AlbumEntity> typedQuery = session.createQuery(hql, AlbumEntity.class);
+		typedQuery.setMaxResults(3);
+		ArrayList<AlbumEntity> arrayList = (ArrayList<AlbumEntity>) typedQuery.getResultList();
+		
+		return arrayList;
+	}
+	
+	public List<AlbumEntity> listedByType(String type) {
+		Session session = databaseConnectionHibernate();
+		
+		String hql = "select str from AlbumEntity as str where str.type like(lower(:tag)) order by str.creation_date desc";
+		TypedQuery<AlbumEntity> typedQuery = session.createQuery(hql, AlbumEntity.class);
+		typedQuery.setParameter("tag", "%" + type + "%");
+		ArrayList<AlbumEntity> arrayList = (ArrayList<AlbumEntity>) typedQuery.getResultList();
+		
+		return arrayList;
+	}
+	
+	public List<AlbumEntity> listedBySalesCount() {
+		Session session = databaseConnectionHibernate();
+		
+		String hql = "select str from AlbumEntity as str order by str.salesCount desc";
+		TypedQuery<AlbumEntity> typedQuery = session.createQuery(hql, AlbumEntity.class);
+		ArrayList<AlbumEntity> arrayList = (ArrayList<AlbumEntity>) typedQuery.getResultList();
+		
+		return arrayList;
 	}
 	
 }
